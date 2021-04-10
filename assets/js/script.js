@@ -55,19 +55,8 @@ const assignData = (data_result) => {
 // Paginacion
 const getPagination = (data_info) => {
     console.log('data_info: ', data_info);
-    let prevDisabled = "";
-    let nextDisabled = "";
-    if (data_info.prev == null) {
-        prevDisabled = "disable";
-    } else {
-        prevDisabled = "";
-    }
-
-    if (data_info.next == null) {
-        nextDisabled = "disable";
-    } else {
-        nextDisabled = "";
-    }
+    let prevDisabled = (data_info.prev == null) ? "disabled" : "";
+    let nextDisabled = (data_info.next == null) ? "disabled" : "";
 
     let htmlPagination = "";
     // htmlPagination += "Previous";
@@ -78,12 +67,12 @@ const getPagination = (data_info) => {
     console.log('url_next: ', url_next);
     htmlPagination += `
     <ul class="pagination justify-content-center">
-        <li class="page-item ` + ((data_info.prev == null) ? 'disabled': '') + `" onclick="getData('` + url_prev + `')">
+        <li class="page-item ` + prevDisabled + `" onclick="getData('` + url_prev + `')">
             <a class="page-link" href="#" tabindex="-1">Previous</a>
         </li>
         &nbsp;
         &nbsp;
-        <li class="page-item ` + ((data_info.next == null) ? 'disabled': '') + `" onclick="getData('` + url_next + `')">
+        <li class="page-item ` + nextDisabled + `" onclick="getData('` + url_next + `')">
             <a class="page-link" href="#">Next</a>
         </li>
     </ul>`;
