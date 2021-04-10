@@ -1,6 +1,7 @@
 // Variables
 const URL_API = "https://rickandmortyapi.com/api/character";
 let contentCards = document.getElementById("contentCards");
+let contentPagination = document.getElementById("contentPagination");
 
 // Consumir API Datos
 const getData = (url_api) => {
@@ -45,14 +46,48 @@ const assignData = (data_result) => {
                 </div>`;
         });    
     } else {
-        ontentResponse += '';
+        contentResponse += '';
     }
     
     // console.log('contentResponse: ', contentResponse);
     contentCards.innerHTML = contentResponse;
 }
 // Paginacion
-const getPagination = () => {
+const getPagination = (data_info) => {
+    console.log('data_info: ', data_info);
+    let prevDisabled = "";
+    let nextDisabled = "";
+    if (data_info.prev == null) {
+        prevDisabled = "disable";
+    } else {
+        prevDisabled = "";
+    }
+
+    if (data_info.next == null) {
+        nextDisabled = "disable";
+    } else {
+        nextDisabled = "";
+    }
+
+    let htmlPagination = "";
+    // htmlPagination += "Previous";
+    // htmlPagination += "Next"
+    let url_prev = (data_info.prev == null) ? null : data_info.prev;
+    console.log('url_prev: ', url_prev);
+    let url_next = (data_info.next == null) ? null : data_info.next;
+    console.log('url_next: ', url_next);
+    htmlPagination += `
+    <ul class="pagination justify-content-center">
+        <li class="page-item ` + ((data_info.prev == null) ? 'disabled': '') + `" onclick="getData('` + url_prev + `')">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        &nbsp;
+        &nbsp;
+        <li class="page-item ` + ((data_info.next == null) ? 'disabled': '') + `" onclick="getData('` + url_next + `')">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>`;
+    contentPagination.innerHTML = htmlPagination;
 
 }
 
